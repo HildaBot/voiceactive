@@ -1,0 +1,6 @@
+{
+    "name": "voiceactive",
+    "mainClass": "ch.jamiete.hilda.voiceactive.VoiceActivePlugin",
+    "version": "${pom.version}",
+    "author": "jamietech"
+}
