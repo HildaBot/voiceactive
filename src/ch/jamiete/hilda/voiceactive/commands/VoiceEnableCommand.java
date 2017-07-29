@@ -20,13 +20,13 @@ import ch.jamiete.hilda.Hilda;
 import ch.jamiete.hilda.commands.ChannelSeniorCommand;
 import ch.jamiete.hilda.commands.ChannelSubCommand;
 import ch.jamiete.hilda.configuration.Configuration;
-import ch.jamiete.hilda.plugins.HildaPlugin;
+import ch.jamiete.hilda.voiceactive.VoiceActivePlugin;
 import net.dv8tion.jda.core.entities.Message;
 
 public class VoiceEnableCommand extends ChannelSubCommand {
-    HildaPlugin plugin;
+    private final VoiceActivePlugin plugin;
 
-    public VoiceEnableCommand(final Hilda hilda, final ChannelSeniorCommand senior, final HildaPlugin plugin) {
+    public VoiceEnableCommand(final Hilda hilda, final ChannelSeniorCommand senior, final VoiceActivePlugin plugin) {
         super(hilda, senior);
 
         this.plugin = plugin;
@@ -49,6 +49,8 @@ public class VoiceEnableCommand extends ChannelSubCommand {
 
         if (cfg.get().getAsJsonArray("channel_order") == null) {
             this.reply(message, "You haven't yet set the order of the channels. You must do that before I'll start changing them.");
+        } else {
+            this.plugin.getListener().tryModify(message.getGuild());
         }
     }
 

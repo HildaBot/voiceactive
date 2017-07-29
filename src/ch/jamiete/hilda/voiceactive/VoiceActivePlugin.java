@@ -43,4 +43,8 @@ public class VoiceActivePlugin extends HildaPlugin {
         this.getHilda().getBot().addEventListener(this.listener = new VoiceListener(this, this.getHilda()));
     }
 
+    public VoiceListener getListener() {
+        return this.listener;
+    }
+
 }
