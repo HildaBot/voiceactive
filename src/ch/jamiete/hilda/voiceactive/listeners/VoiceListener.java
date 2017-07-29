@@ -58,7 +58,7 @@ public class VoiceListener {
     }
 
     public void tryModify(final Guild guild) {
-        if (!guild.getSelfMember().hasPermission(Permission.MANAGE_CHANNEL)) {
+        if (guild == null || !guild.getSelfMember().hasPermission(Permission.MANAGE_CHANNEL)) {
             return;
         }
 
