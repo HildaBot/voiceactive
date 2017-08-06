@@ -99,19 +99,7 @@ public class VoiceListener {
 
             @Override
             public int compare(final VoiceChannel one, final VoiceChannel two) {
-                if (one.getMembers().size() < two.getMembers().size()) {
-                    return -1;
-                }
-
-                if (one.getMembers().size() == two.getMembers().size()) {
-                    return 0;
-                }
-
-                if (one.getMembers().size() > two.getMembers().size()) {
-                    return 1;
-                }
-
-                return 0;
+                return one.getMembers().size() + two.getMembers().size();
             }
 
         });
