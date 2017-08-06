@@ -31,6 +31,7 @@ public class VoiceBaseCommand extends ChannelSeniorCommand {
 
         this.registerSubcommand(new VoiceEnableCommand(hilda, this, plugin));
         this.registerSubcommand(new VoiceOrderCommand(hilda, this, plugin));
+        this.registerSubcommand(new VoiceReorderCommand(hilda, this, plugin));
     }
 
 }
