@@ -129,6 +129,10 @@ public class VoiceListener {
             action.selectPosition(channel).moveTo(position);
         }
 
+        if (guild.getAfkChannel() != null) {
+            action.selectPosition(guild.getAfkChannel()).moveTo(action.getCurrentOrder().size() - 1);
+        }
+
         action.queue();
     }
 
