@@ -13,7 +13,7 @@
 
 	<groupId>ch.jamiete.hilda.voiceactive</groupId>
 	<artifactId>VoiceActive</artifactId>
-	<version>1.0.1</version>
+	<version>1.0.2</version>
 
 	<build>
 		<sourceDirectory>src</sourceDirectory>
@@ -39,7 +39,7 @@
 		<dependency>
 			<groupId>ch.jamiete.hilda</groupId>
 			<artifactId>Hilda</artifactId>
-			<version>1.1.4</version>
+			<version>1.1.5</version>
 		</dependency>
 	</dependencies>
 
