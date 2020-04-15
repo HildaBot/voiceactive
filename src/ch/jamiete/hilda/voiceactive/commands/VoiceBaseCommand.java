@@ -18,7 +18,7 @@ package ch.jamiete.hilda.voiceactive.commands;
 import ch.jamiete.hilda.Hilda;
 import ch.jamiete.hilda.commands.ChannelSeniorCommand;
 import ch.jamiete.hilda.voiceactive.VoiceActivePlugin;
-import net.dv8tion.jda.core.Permission;
+import net.dv8tion.jda.api.Permission;
 
 public class VoiceBaseCommand extends ChannelSeniorCommand {
 

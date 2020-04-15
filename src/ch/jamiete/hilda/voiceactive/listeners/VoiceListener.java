@@ -16,8 +16,6 @@
 package ch.jamiete.hilda.voiceactive.listeners;
 
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.Iterator;
 import java.util.List;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -25,13 +23,13 @@ import ch.jamiete.hilda.Hilda;
 import ch.jamiete.hilda.configuration.Configuration;
 import ch.jamiete.hilda.events.EventHandler;
 import ch.jamiete.hilda.voiceactive.VoiceActivePlugin;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Guild;
-import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.events.guild.voice.GuildVoiceJoinEvent;
-import net.dv8tion.jda.core.events.guild.voice.GuildVoiceLeaveEvent;
-import net.dv8tion.jda.core.events.guild.voice.GuildVoiceMoveEvent;
-import net.dv8tion.jda.core.requests.restaction.order.ChannelOrderAction;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Guild;
+import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceJoinEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceLeaveEvent;
+import net.dv8tion.jda.api.events.guild.voice.GuildVoiceMoveEvent;
+import net.dv8tion.jda.api.requests.restaction.order.ChannelOrderAction;
 
 public class VoiceListener {
     private final VoiceActivePlugin plugin;
@@ -74,11 +72,10 @@ public class VoiceListener {
             return;
         }
 
-        final List<VoiceChannel> order = new ArrayList<VoiceChannel>();
-        final Iterator<JsonElement> iterator = array.iterator();
+        final List<VoiceChannel> order = new ArrayList<>();
 
-        while (iterator.hasNext()) {
-            final String id = iterator.next().getAsString();
+        for (JsonElement jsonElement : array) {
+            final String id = jsonElement.getAsString();
             final VoiceChannel channel = guild.getVoiceChannelById(id);
 
             if (channel != null) {
@@ -86,7 +83,7 @@ public class VoiceListener {
             }
         }
 
-        final List<VoiceChannel> hasusers = new ArrayList<VoiceChannel>();
+        final List<VoiceChannel> hasusers = new ArrayList<>();
 
         for (final VoiceChannel channel : guild.getVoiceChannels()) {
             if (!channel.getMembers().isEmpty()) {
@@ -95,16 +92,9 @@ public class VoiceListener {
             }
         }
 
-        hasusers.sort(new Comparator<VoiceChannel>() {
+        hasusers.sort((one, two) -> one.getMembers().size() + two.getMembers().size());
 
-            @Override
-            public int compare(final VoiceChannel one, final VoiceChannel two) {
-                return one.getMembers().size() + two.getMembers().size();
-            }
-
-        });
-
-        final ChannelOrderAction<VoiceChannel> action = guild.getController().modifyVoiceChannelPositions();
+        final ChannelOrderAction action = guild.modifyVoiceChannelPositions();
 
         for (int i = 0; i < hasusers.size(); i++) {
             final VoiceChannel channel = hasusers.get(i);

@@ -16,12 +16,14 @@
 package ch.jamiete.hilda.voiceactive.commands;
 
 import java.util.Arrays;
+import java.util.Collections;
+
 import ch.jamiete.hilda.Hilda;
 import ch.jamiete.hilda.commands.ChannelSeniorCommand;
 import ch.jamiete.hilda.commands.ChannelSubCommand;
 import ch.jamiete.hilda.configuration.Configuration;
 import ch.jamiete.hilda.voiceactive.VoiceActivePlugin;
-import net.dv8tion.jda.core.entities.Message;
+import net.dv8tion.jda.api.entities.Message;
 
 public class VoiceEnableCommand extends ChannelSubCommand {
     private final VoiceActivePlugin plugin;
@@ -32,7 +34,7 @@ public class VoiceEnableCommand extends ChannelSubCommand {
         this.plugin = plugin;
 
         this.setName("enable");
-        this.setAliases(Arrays.asList(new String[] { "disable" }));
+        this.setAliases(Collections.singletonList("disable"));
         this.setDescription("Toggles the operation of the voice activity checker.");
     }
 

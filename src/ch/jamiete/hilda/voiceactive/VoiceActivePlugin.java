@@ -19,7 +19,7 @@ import ch.jamiete.hilda.Hilda;
 import ch.jamiete.hilda.plugins.HildaPlugin;
 import ch.jamiete.hilda.voiceactive.commands.VoiceBaseCommand;
 import ch.jamiete.hilda.voiceactive.listeners.VoiceListener;
-import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.api.entities.Guild;
 
 public class VoiceActivePlugin extends HildaPlugin {
     private VoiceListener listener;

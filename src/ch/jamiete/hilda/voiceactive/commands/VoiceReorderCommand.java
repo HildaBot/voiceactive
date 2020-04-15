@@ -15,10 +15,8 @@
  *******************************************************************************/
 package ch.jamiete.hilda.voiceactive.commands;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
+
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import ch.jamiete.hilda.Hilda;
@@ -26,10 +24,10 @@ import ch.jamiete.hilda.commands.ChannelSeniorCommand;
 import ch.jamiete.hilda.commands.ChannelSubCommand;
 import ch.jamiete.hilda.configuration.Configuration;
 import ch.jamiete.hilda.plugins.HildaPlugin;
-import net.dv8tion.jda.core.Permission;
-import net.dv8tion.jda.core.entities.Message;
-import net.dv8tion.jda.core.entities.VoiceChannel;
-import net.dv8tion.jda.core.requests.restaction.order.ChannelOrderAction;
+import net.dv8tion.jda.api.Permission;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.VoiceChannel;
+import net.dv8tion.jda.api.requests.restaction.order.ChannelOrderAction;
 
 public class VoiceReorderCommand extends ChannelSubCommand {
     HildaPlugin plugin;
@@ -40,7 +38,7 @@ public class VoiceReorderCommand extends ChannelSubCommand {
         this.plugin = plugin;
 
         this.setName("reorder");
-        this.setAliases(Arrays.asList(new String[] { "return" }));
+        this.setAliases(Collections.singletonList("return"));
         this.setDescription("Returns the voice channels to their proper order.");
     }
 
@@ -59,11 +57,10 @@ public class VoiceReorderCommand extends ChannelSubCommand {
             return;
         }
 
-        final List<VoiceChannel> order = new ArrayList<VoiceChannel>();
-        final Iterator<JsonElement> iterator = array.iterator();
+        final List<VoiceChannel> order = new ArrayList<>();
 
-        while (iterator.hasNext()) {
-            final String id = iterator.next().getAsString();
+        for (JsonElement jsonElement : array) {
+            final String id = jsonElement.getAsString();
             final VoiceChannel channel = message.getGuild().getVoiceChannelById(id);
 
             if (channel != null) {
@@ -71,7 +68,7 @@ public class VoiceReorderCommand extends ChannelSubCommand {
             }
         }
 
-        final ChannelOrderAction<VoiceChannel> action = message.getGuild().getController().modifyVoiceChannelPositions();
+        final ChannelOrderAction action = message.getGuild().modifyVoiceChannelPositions();
 
         for (int i = 0; i < order.size(); i++) {
             action.selectPosition(order.get(i)).moveTo(i);
